@@ -17,14 +17,8 @@ import org.codehaus.jackson.map.SerializerProvider;
 public  class CustomDateSerializer extends JsonSerializer<Date> {
 	//时间格式
 	private static final String LONG_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss",SHORT_DATE_FORMAT  = "yyyy-MM-dd";
-	/**
-	 * 长日期格式（yyyy-MM-dd HH:mm:ss）
-	 */
-	public final static CustomLongDateSerializer Long = new CustomLongDateSerializer();
-	/**
-	 * 短日期格式（yyyy-MM-dd）
-	 */
-	public final static CustomShortDateSerializer Short = new CustomShortDateSerializer();
+	//长日期格式（yyyy-MM-dd HH:mm:ss） 
+	private final static LongDate Long = new LongDate();
 	/*
 	 * 格式转化。
 	 * @see org.codehaus.jackson.map.JsonSerializer#serialize(java.lang.Object, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
@@ -50,7 +44,7 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	 * @author yangyong。
 	 * @since 2014-08-06。
 	 */
-	public static class CustomLongDateSerializer extends CustomDateSerializer{
+	public static class LongDate extends CustomDateSerializer{
 		/*
 		 * 时间格式序列化。
 		 * @see com.examw.support.CustomDateSerializer#serialize(java.util.Date, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
@@ -65,7 +59,7 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	 * @author yangyong。
 	 * @since 2014-08-06。
 	 */
-	public static class CustomShortDateSerializer extends CustomDateSerializer{
+	public static class ShortDate extends CustomDateSerializer{
 		/*
 		 * 时间格式序列化。
 		 * @see com.examw.support.CustomDateSerializer#serialize(java.util.Date, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
