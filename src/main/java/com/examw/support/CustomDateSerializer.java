@@ -9,7 +9,6 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
-
 /**
  * 自定义日期格式JSON化。
  * @author yangyong
@@ -21,21 +20,11 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	/**
 	 * 长日期格式（yyyy-MM-dd HH:mm:ss）
 	 */
-	public final static CustomDateSerializer Long = new CustomDateSerializer(){
-		@Override
-		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
-			this.serialize(value, jgen, LONG_DATE_FORMAT);
-		}
-	};
+	public final static CustomLongDateSerializer Long = new CustomLongDateSerializer();
 	/**
 	 * 短日期格式（yyyy-MM-dd）
 	 */
-	public final static CustomDateSerializer Short = new CustomDateSerializer(){
-		@Override
-		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
-			this.serialize(value, jgen, SHORT_DATE_FORMAT);
-		}
-	};
+	public final static CustomShortDateSerializer Short = new CustomShortDateSerializer();
 	/*
 	 * 格式转化。
 	 * @see org.codehaus.jackson.map.JsonSerializer#serialize(java.lang.Object, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
@@ -55,5 +44,35 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	protected void serialize(Date value, JsonGenerator jgen, String format) throws JsonGenerationException, IOException{
 		 SimpleDateFormat formatter = new SimpleDateFormat(format); 
 		 jgen.writeString(formatter.format(value));
+	}
+	/**
+	 * 长时间格式。
+	 * @author yangyong。
+	 * @since 2014-08-06。
+	 */
+	public static class CustomLongDateSerializer extends CustomDateSerializer{
+		/*
+		 * 时间格式序列化。
+		 * @see com.examw.support.CustomDateSerializer#serialize(java.util.Date, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
+		 */
+		@Override
+		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
+			this.serialize(value, jgen, LONG_DATE_FORMAT);
+		}
+	}
+	/**
+	 * 短时间格式。
+	 * @author yangyong。
+	 * @since 2014-08-06。
+	 */
+	public static class CustomShortDateSerializer extends CustomDateSerializer{
+		/*
+		 * 时间格式序列化。
+		 * @see com.examw.support.CustomDateSerializer#serialize(java.util.Date, org.codehaus.jackson.JsonGenerator, org.codehaus.jackson.map.SerializerProvider)
+		 */
+		@Override
+		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
+			this.serialize(value, jgen, SHORT_DATE_FORMAT);
+		}
 	}
 }
