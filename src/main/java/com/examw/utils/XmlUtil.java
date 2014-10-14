@@ -114,7 +114,7 @@ public final class XmlUtil {
 	 * */
 	public synchronized static Document loadDocument(String data) throws SAXException, IOException, ParserConfigurationException{
 		if(data != null && !data.isEmpty()){
-			return loadDocument(new ByteArrayInputStream(data.getBytes()));
+			return loadDocument(new ByteArrayInputStream(data.getBytes("UTF-8")));
 		}
 		return null;
 	}
