@@ -17,6 +17,12 @@ public class Json implements Serializable {
 	private Object data;
 	private String msg;
 	/**
+	 * 构造函数。
+	 */
+	public Json(){
+		this.setSuccess(false);
+	}
+	/**
 	 * 获取是否成功。
 	 * @return 是否成功。
 	 * */

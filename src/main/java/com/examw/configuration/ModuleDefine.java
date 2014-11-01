@@ -1,21 +1,50 @@
 package com.examw.configuration;
 
 import java.io.Serializable;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 /**
  * 模块系统信息。
  * @author young。
  * @since 2013-09-18。
  * */
-public class ModuleDefine implements Serializable {
+@XStreamAlias("module")
+public class ModuleDefine implements Serializable,Comparable<ModuleDefine> {
 	private static final long serialVersionUID = 1L;	
+	@XStreamAsAttribute
 	private String id,icon, name, uri;
+	@XStreamAsAttribute
 	private Integer order = 0;
+	@XStreamImplicit
 	private ModuleDefineCollection modules;
 	/**
 	 * 构造函数。
 	 * */
 	public ModuleDefine(){
 		this.setModules(new ModuleDefineCollection());
+	}
+	/**
+	 * 构造函数。
+	 * @param id
+	 * 模块ID。
+	 * @param icon
+	 * 图标。
+	 * @param name
+	 * 模块名称。
+	 * @param uri
+	 * 模块URI。
+	 * @param order
+	 * 排序号。
+	 */
+	public ModuleDefine(String id,String icon,String name,String uri, Integer order){
+		this();
+		this.setId(id);
+		this.setIcon(icon);
+		this.setName(name);
+		this.setUri(uri);
+		this.setOrder(order);
 	}
 	/**
 	 * 获取模块ID。
@@ -89,7 +118,7 @@ public class ModuleDefine implements Serializable {
 	 * @param order
 	 * 	排序号。
 	 * */
-	public void setOrderNo(Integer order) {
+	public void setOrder(Integer order) {
 		this.order = order;
 	}
 	/**
@@ -106,5 +135,40 @@ public class ModuleDefine implements Serializable {
 	 * */
 	public void setModules(ModuleDefineCollection modules) {
 		this.modules = modules;
+	}
+	/**
+	 * 添加子模块。
+	 * @param moduleDefine
+	 * 子模块。
+	 */
+	public void addChild(ModuleDefine moduleDefine){
+		if(moduleDefine == null || this.modules == null) return;
+		this.modules.add(moduleDefine);
+	}
+	/*
+	 * 排序比较。
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(ModuleDefine o) {
+		int index = 0;
+		if(this == o) return index;
+		index = this.getOrder() - o.getOrder();
+		if(index == 0){
+			index = this.getName().compareToIgnoreCase(o.getName());
+			if(index == 0){
+				index = this.getId().compareToIgnoreCase(o.getId());
+			}
+		}
+		return index;
+	}
+	/*
+	 * 对象字符串。
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		 return String.format("id=%1$s,name=%2$s,icon=%3$s,uri=%4$s,order=%5$d,modules={%6$s}", 
+				 this.getId(), this.getName(), this.getIcon(), this.getUri(), this.getOrder(), this.getModules().toString());
 	}
 }

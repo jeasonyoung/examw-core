@@ -2,6 +2,7 @@ package com.examw.configuration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -73,8 +74,13 @@ public class ModuleDefineCollection implements Collection<ModuleDefine>,Comparat
 	 * */
 	@Override
 	public boolean contains(Object o) {
-		if(o != null && this.list.size() > 0){
-			return this.list.contains(o);
+		if(o != null && (o instanceof ModuleDefine) && this.list.size() > 0){
+			for(ModuleDefine define : this.list){
+				if(define == null) continue;
+				if(define.getId().equalsIgnoreCase(((ModuleDefine)o).getId())){
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -197,5 +203,16 @@ public class ModuleDefineCollection implements Collection<ModuleDefine>,Comparat
 	@Override
 	public int compare(ModuleDefine x, ModuleDefine y) {
 		 return x.getOrder() - y.getOrder();
+	}
+	/*
+	 * 对象字符串。
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if(this.list != null && this.list.size() > 0){
+			return Arrays.toString(this.list.toArray(new ModuleDefine[0]));
+		}
+		return super.toString();
 	}
 }

@@ -1,20 +1,51 @@
 package com.examw.configuration;
 
 import java.io.Serializable;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 /**
  * 模块系统信息。
  * @author young.
  * @since 2013-09-18.
  * */
+@XStreamAlias("system")
 public class ModuleSystem implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id,sign,name,description;
+	@XStreamAsAttribute
+	private String id;
+	@XStreamAsAttribute
+	private String sign;
+	@XStreamAsAttribute
+	private String name;
+	@XStreamAsAttribute
+	private String description;
+	@XStreamImplicit
 	private ModuleDefineCollection modules;
 	/**
 	 * 构造函数。
 	 * */
 	public ModuleSystem(){
 		this.setModules(new ModuleDefineCollection());
+	}
+	/**
+	 * 构造函数。
+	 * @param id
+	 * 系统ID。
+	 * @param sign
+	 * 系统标示。
+	 * @param name
+	 * 系统名称。
+	 * @param description
+	 * 系统描述。
+	 */
+	public ModuleSystem(String id,String sign,String name,String description){
+		this();
+		this.setId(id);
+		this.setSign(sign);
+		this.setName(name);
+		this.setDescription(description);
 	}
 	/**
 	 * 获取系统ID。
@@ -89,5 +120,23 @@ public class ModuleSystem implements Serializable {
 	 * */
 	public void setModules(ModuleDefineCollection modules) {
 		this.modules = modules;
+	}
+	/**
+	 * 添加模块。
+	 * @param moduleDefine
+	 * 模块。
+	 */
+	public void add(ModuleDefine moduleDefine){
+		if(moduleDefine == null || this.modules == null) return;
+		this.modules.add(moduleDefine);
+	}
+	/*
+	 * 对象字符串。
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return String.format("id=%1$s,sign=%2$s,name=%2$s,description=%3$s,modules={%4$s}", 
+				this.getId(), this.getSign(), this.getName(), this.getDescription(), this.getModules());
 	}
 }

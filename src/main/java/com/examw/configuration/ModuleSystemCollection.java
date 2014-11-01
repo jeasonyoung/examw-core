@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -75,8 +76,16 @@ public class ModuleSystemCollection implements Collection<ModuleSystem>,Comparat
 	 * */
 	@Override
 	public boolean contains(Object o) {
-		if(o == null) return false;
-		return this.systems.contains(o);
+		if(o == null || this.systems.size() == 0) return false;
+		if(o instanceof ModuleSystem){
+			for(ModuleSystem ms : this.systems){
+				if(ms == null) continue;
+				if(ms.getId().equalsIgnoreCase(((ModuleSystem)o).getId())){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	/**
 	 * 
@@ -111,7 +120,10 @@ public class ModuleSystemCollection implements Collection<ModuleSystem>,Comparat
 	@Override
 	public boolean add(ModuleSystem e) {
 		if(e == null) return false;
-		return this.systems.add(e);
+		if(!this.contains(e)){
+			return this.systems.add(e);
+		}
+		return false;
 	}
 	/**
 	 * 移除模块系统对象。
@@ -172,7 +184,7 @@ public class ModuleSystemCollection implements Collection<ModuleSystem>,Comparat
 		this.systems.clear();
 	}
 	/**
-	 * 
+	 * 排序比较。
 	 * */
 	@Override
 	public int compare(ModuleSystem x, ModuleSystem y) {
@@ -181,5 +193,16 @@ public class ModuleSystemCollection implements Collection<ModuleSystem>,Comparat
 			result= x.getSign().compareToIgnoreCase(y.getSign());
 		}
 		return result;
+	}
+	/*
+	 * 对象字符串。
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if(this.systems != null && this.systems.size() > 0){
+			return Arrays.toString(this.systems.toArray(new ModuleSystem[0]));
+		}
+		return super.toString();
 	}
 }
