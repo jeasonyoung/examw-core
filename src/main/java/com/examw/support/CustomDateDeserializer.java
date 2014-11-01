@@ -45,7 +45,6 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
 			try {
 				return this.deserialize(arg0, arg1, LONG_DATE_FORMAT);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
@@ -67,7 +66,6 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
 			try {
 				return this.deserialize(arg0, arg1, SHORT_DATE_FORMAT);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
@@ -79,7 +77,6 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
 		try {
 			return Long.deserialize(arg0, arg1, LONG_DATE_FORMAT);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
