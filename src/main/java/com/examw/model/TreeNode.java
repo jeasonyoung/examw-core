@@ -19,6 +19,20 @@ public class TreeNode implements Serializable {
 	private Map<String, Object> attributes;
 	private List<TreeNode> children;
 	/**
+	 * 构造函数。
+	 */
+	public TreeNode(){}
+	/**
+	 * 构造函数。
+	 * @param id
+	 * @param text
+	 */
+	public TreeNode(String id,String text){
+		this();
+		this.setId(id);
+		this.setText(text);
+	}
+	/**
 	 * 获取节点ID。
 	 * @return 节点ID。
 	 * */

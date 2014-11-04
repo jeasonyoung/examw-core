@@ -3,10 +3,9 @@ package com.examw.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -34,19 +33,7 @@ public final class MD5Util {
 	public final static String MD5(InputStream stream){
 		if(stream == null) return null;
 		try {
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-			if(stream.markSupported()){
-				stream.reset();
-			}
-			byte[] buf = new byte[1024];
-			int len = -1;
-			while((len = stream.read(buf, 0, buf.length)) > 0){
-				digest.update(buf, 0, len);
-			}
-			byte[] result = digest.digest();
-			return HexUtil.parseBytesHex(result);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			return DigestUtils.md5DigestAsHex(StreamUtils.copyToByteArray(stream));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
