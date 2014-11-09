@@ -1,7 +1,5 @@
 package com.examw.configuration;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,10 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 /**
  * 模块系统集合。
  * @author young。
@@ -27,16 +21,6 @@ public class ModuleSystemCollection implements Collection<ModuleSystem>,Comparat
 	 * */
 	public ModuleSystemCollection(){
 		this.systems = new ArrayList<>();
-	}
-	/*
-	 * 将Xml文件流解析为模块系统对象集合。
-	 * @param inputStream
-	 * 	xml文件流。
-	 * @return
-	 * 	模块系统对象集合。
-	 * */
-	public static ModuleSystemCollection parse(InputStream inputStream) throws SAXException, IOException, ParserConfigurationException{
-		return ModuleParse.parse(inputStream);
 	}
 	/**
 	 * 获取模块系统。
