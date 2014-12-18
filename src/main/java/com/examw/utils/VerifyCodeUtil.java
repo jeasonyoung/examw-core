@@ -66,7 +66,7 @@ public class VerifyCodeUtil {
 		if(length <= 0) return null;
 		StringBuffer verifyCodeBuffer = new StringBuffer();
 		int i = 0;
-		Random random = new Random();
+		Random random = new Random(System.currentTimeMillis());
 		switch(type){
 			case TYPE_NUM_ONLY://仅数字
 				while(i < length){
