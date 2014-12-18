@@ -25,7 +25,9 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	 */
 	@Override
 	public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
-		 Long.serialize(value, jgen, provider);
+		if(value != null){
+			Long.serialize(value, jgen, provider);
+		}
 	}
 	/**
 	 * 格式化日期数据。
@@ -36,8 +38,10 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 	 * @throws IOException
 	 */
 	protected void serialize(Date value, JsonGenerator jgen, String format) throws JsonGenerationException, IOException{
-		 SimpleDateFormat formatter = new SimpleDateFormat(format); 
-		 jgen.writeString(formatter.format(value));
+		if(value != null){
+			SimpleDateFormat formatter = new SimpleDateFormat(format); 
+			jgen.writeString(formatter.format(value));
+		}
 	}
 	/**
 	 * 长时间格式。
@@ -51,7 +55,9 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 		 */
 		@Override
 		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
-			this.serialize(value, jgen, LONG_DATE_FORMAT);
+			if(value != null){
+				this.serialize(value, jgen, LONG_DATE_FORMAT);
+			}
 		}
 	}
 	/**
@@ -66,7 +72,9 @@ public  class CustomDateSerializer extends JsonSerializer<Date> {
 		 */
 		@Override
 		public void serialize(Date value, JsonGenerator jgen,SerializerProvider provider) throws IOException,JsonProcessingException {
-			this.serialize(value, jgen, SHORT_DATE_FORMAT);
+			if(value != null){
+				this.serialize(value, jgen, SHORT_DATE_FORMAT);
+			}
 		}
 	}
 }
