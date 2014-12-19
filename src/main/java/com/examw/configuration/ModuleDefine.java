@@ -162,13 +162,4 @@ public class ModuleDefine implements Serializable,Comparable<ModuleDefine> {
 		}
 		return index;
 	}
-	/*
-	 * 对象字符串。
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		 return String.format("id=%1$s,name=%2$s,icon=%3$s,uri=%4$s,order=%5$d,modules={%6$s}", 
-				 this.getId(), this.getName(), this.getIcon(), this.getUri(), this.getOrder(), this.getModules().toString());
-	}
 }
