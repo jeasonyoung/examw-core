@@ -15,14 +15,25 @@ import org.springframework.util.StringUtils;
  * */
 public final class MD5Util {
 	/**
-	 * 将字符串md5加密. 
+	 * 将字符串md5编码。
 	 * @param source
-	 * 	字符串。
-	 * @return 密文.
-	 * */
+	 * 字符串。
+	 * @return hex
+	 */
 	public final static String MD5(String source){
+		return MD5(source, Charset.forName(AESUtil.charsetName));
+	}
+	/**
+	 * 将字符串md5编码。
+	 * @param source
+	 * 字符串。
+	 * @param charset
+	 * 编码
+	 * @return hex
+	 */
+	public final static String MD5(String source, Charset charset){
 		 if(StringUtils.isEmpty(source)) return null;
-		 return DigestUtils.md5DigestAsHex(source.getBytes(Charset.forName(AESUtil.charsetName)));
+		 return DigestUtils.md5DigestAsHex(source.getBytes(charset == null ? Charset.forName(AESUtil.charsetName) : charset));
 	}
 	/**
 	 * 对输入流进行md5加密。
